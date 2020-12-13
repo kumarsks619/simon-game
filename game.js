@@ -39,15 +39,14 @@ const nextSequence = () => {
 const checkAnswer = (lastIndex) => {
     if (userClickedPattern[lastIndex] === gamePattern[lastIndex]) {
         if (lastIndex + 1 === gameLevel) {
-            console.log("Correct")
             userClickedPattern = []
             setTimeout(nextSequence, 1000)
         }
     } else {
-        console.log("Wrong")
         playSound('wrong')
         $('body').addClass('game-over')
         $('#level-title').text("Game Over! Press Any Key to Restart.")
+        $('#result').text("Level Reached: " + gameLevel)
         setTimeout(() => {
             $('body').removeClass('game-over')
         }, 2000)
@@ -65,6 +64,7 @@ $(".btn").on('click', (e) => {
 
 // handling game start on any keypress
 $(document).on('keydown', () => {
+    $('#result').text("")
     if (gameLevel == 0) {
         nextSequence()
     }
